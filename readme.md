@@ -1,6 +1,6 @@
 # Title
 
-**/\* Author: Snow (2023.6.18) \*/
+*Author: Snow (2023.6.18) 
 
 ## These algorithms for generating the permutations
 
