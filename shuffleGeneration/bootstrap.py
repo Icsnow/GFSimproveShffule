@@ -7,7 +7,6 @@ from tqdm import tqdm
 import numba as nb
 from numba import jit
 
-
 def rotate_left(lst, n):
     if len(lst) <= 1:
         return lst
@@ -56,23 +55,23 @@ def cycle_to_permutations(t_branch, cycles):
     return disCycleClass
 
 
-def ConjugatedPermutationsGeneration():
+def ConjugatedShufflesGeneration():
     temp_cycles = [[1]]
     b = 1
     while b < pair_ub:
         b += 1
         temp_cycles = iterative_cycle(temp_cycles)
-        np.save(r'ConjugatedPermutations/{}_BranchConjugatedPermutations'.format(b), cycle_to_permutations(b, temp_cycles))
+        np.save(r'ConjugatedShuffles/{}_BranchConjugatedShuffles'.format(b), cycle_to_permutations(b, temp_cycles))
 
 
-def InitialPermutationsGeneration(b):
+def InitialShufflesGeneration(b):
     perm = np.array(list(itertools.permutations(range(b))))
-    np.save(r'InitialPermutations/{}_BranchInitialPermutations'.format(b), perm)
+    np.save(r'InitialShuffles/{}_BranchInitialShuffles'.format(b), perm)
     return perm
 
 
 @jit(nopython=True)
-def ConditionalPermutationsGeneration(initP, b):
+def ConditionalShufflesGeneration(initP, b):
     ConditionalPerms = nb.typed.List()
     for p in initP:
         conditionP = nb.typed.List([-1 for _ in range(2*b)])
@@ -85,11 +84,11 @@ def ConditionalPermutationsGeneration(initP, b):
 
 def check(pair_len):
     print('\nNumber of {}-branch initial permutations is'.format(pair_len),
-          len(np.load(r'InitialPermutations/{}_BranchInitialPermutations.npy'.format(pair_len))))
+          len(np.load(r'InitialShuffles/{}_BranchInitialShuffles.npy'.format(pair_len))))
     print('Number of {}-branch conjugated permutations is'.format(pair_len),
-          np.load(r'ConjugatedPermutations/{}_BranchConjugatedPermutations.npy'.format(pair_len)))
+          np.load(r'ConjugatedShuffles/{}_BranchConjugatedShuffles.npy'.format(pair_len)))
     print('Number of {}-branch conditional permutations is'.format(2*pair_len),
-          len(np.load(r'ConditionalPermutations/{}_BranchConditionalPermutations.npy'.format(2*pair_len))), '\n')
+          len(np.load(r'ConditionalShuffles/{}_BranchConditionalShuffles.npy'.format(2*pair_len))), '\n')
 
 
 if __name__ == '__main__':
@@ -97,14 +96,14 @@ if __name__ == '__main__':
     pair_lb = 2
     pair_ub = 8
 
-    ConjugatedPermutationsGeneration()
+    ConjugatedShufflesGeneration()
 
     for pr in range(pair_lb, pair_ub+1):
 
-        perms = InitialPermutationsGeneration(pr)
+        perms = InitialShufflesGeneration(pr)
 
-        tcp = np.array(ConditionalPermutationsGeneration(perms, pr))
+        tcp = np.array(ConditionalShufflesGeneration(perms, pr))
 
-        np.save(r'ConditionalPermutations/{}_BranchConditionalPermutations'.format(2 * pr), np.array(tcp))
+        np.save(r'ConditionalShuffles/{}_BranchConditionalShuffles'.format(2 * pr), np.array(tcp))
 
         check(pr)

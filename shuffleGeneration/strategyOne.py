@@ -51,9 +51,9 @@ class Strategy:
         self.pairEquivalentPerms = np.array([p for p in self.pairEquivalentPerms])
         print('\n=====\n' + str(self.branch) + ' branch --> No_perms = '
               + str(self.pairEquivalentPerms.size // self.branch) + '\n=====\n')
-        np.save('PairEquivalentPermutations/{}_BranchPairEquivalentPermutations'.format(self.branch),
+        np.save('PairEquivalentShuffles/{}_BranchPairEquivalentShuffles'.format(self.branch),
                 np.array(self.pairEquivalentPerms))
-        # print(np.load('PairEquivalentPermutations/{}_BranchPairEquivalentPermutations.npy'.format(self.branch)))
+        # print(np.load('PairEquivalentShuffles/{}_BranchPairEquivalentShuffles.npy'.format(self.branch)))
 
     # def test(self):
     #     print(self.initialPerms, '\n', len(self.initialPerms))
@@ -65,11 +65,11 @@ if __name__ == '__main__':
 
     pool = multiprocessing.Pool(5)
     # k_lis = [4, 6, 8, 10, 12, 14, 16, 18, 20, 22, 24]
-    k_lis = [4, 6, 8, 10]
+    k_lis = [4, 6, 8, 10, 12, 14]
     for k in k_lis:
-        initialPerms = np.load('InitialPermutations/{}_BranchInitialPermutations.npy'.format(int(k/2)))
-        conjugatePerms = np.load('ConjugatedPermutations/{}_BranchConjugatedPermutations.npy'.format(int(k/2)))
-        conditionalPerms = np.load('ConditionalPermutations/{}_BranchConditionalPermutations.npy'.format(k))
+        initialPerms = np.load('InitialShuffles/{}_BranchInitialShuffles.npy'.format(int(k/2)))
+        conjugatePerms = np.load('ConjugatedShuffles/{}_BranchConjugatedShuffles.npy'.format(int(k/2)))
+        conditionalPerms = np.load('ConditionalShuffles/{}_BranchConditionalShuffles.npy'.format(k))
         s = Strategy(k, initialPerms, conjugatePerms, conditionalPerms)
         pool.apply_async(s.pairEquivalentGeneration, args=())
     pool.close()
