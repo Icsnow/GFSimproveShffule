@@ -12,7 +12,7 @@ import math
 from _diffusion import DR_max_Search
 from _differential import generate_Differential_Model
 from _linear import generate_Linear_Model
-# from _impossible_differential import generate_impossibleDifferential_Model
+from _impossible_differential import generate_impossibleDifferential_Model
 # from _DS_MITM import gen_DSMITM_model
 # from _division_property import gen_divisionProperty_model
 
@@ -58,7 +58,7 @@ class Evaluation:
     def linear(self):
         with open(self.inflowFilePath, 'rb') as fp:
             shuffles = pickle.load(fp)
-        border = shuffles.get(next(iter(shuffles)))[1] - 5
+        border = shuffles.get(next(iter(shuffles)))[1] - 3
         linear_result = dict()
         for sk, v in shuffles.items():
             if v[1] > border:
@@ -69,10 +69,33 @@ class Evaluation:
 
         self.save_file(linear_result)
 
+    def impossibleDifferential(self):
+        with open(self.inflowFilePath, 'rb') as fp:
+            shuffles = pickle.load(fp)
+        border = [-1, shuffles.get(next(iter(shuffles)))[1] - 3, shuffles.get(next(iter(shuffles)))[2] - 3]
+        idc_result = dict()
+        for sk, v in shuffles.items():
+            if v[1] > border[1] and v[2] > border[2]:
+                for t_round in range(5, 99):
+                    ac_position = np.eye(self.branch)
+                    flag = 0
+                    for ac_in in ac_position:
+                        for ac_out in ac_position:
+                            if generate_impossibleDifferential_Model(sk, t_round, ac_in, ac_out) == 3:
+                                flag = 1
+                                break
+                        if flag: break
+                    if not flag:
+                        idc_result[sk] = v + [t_round]
+                        break
+        idc_result = dict(sorted(idc_result.items(), key=lambda  key:(key[1][3])))
+        self.save_file(idc_result)
 
+'''
+Methods of 
+'''
 def Diffusion():
     # Collect the DR_max of each shuffle
-
     for br in tqdm(branchList):
         pairEqCSPath = r"../shuffleGeneration/PairEquivalentShuffles/{}_BranchPairEquivalentShuffles.npy".format(br)
         savePath = r'ResultDiffusion/{}_branch.txt'.format(br)
@@ -87,20 +110,31 @@ def Differential():
         diffusedShufflePath = r'ResultDiffusion/{}_branch.pkl'.format(br)
         savePath = r'ResultDifferential/{}_branch.txt'.format(br)
         Skive = Evaluation(diffusedShufflePath, savePath, br)
-        # Skive.differential()
         pool.apply_async(Skive.differential, args=())
     pool.close()
     pool.join()
 
 def Linear():
-    # Collect the Min Truncated LC Active S_box of shuffle with higher ADc S_boxes
+    # Collect the Min Truncated LC Active S_box of shuffle with higher ADs
     pool = multiprocessing.Pool(4)
     for br in branchList:
-        linearShufflePath = r'ResultDifferential/{}_branch.pkl'.format(br)
+        differentialShufflePath = r'ResultDifferential/{}_branch.pkl'.format(br)
         savePath = r'ResultLinear/{}_branch.txt'.format(br)
-        Skive = Evaluation(linearShufflePath, savePath, br)
-        # Skive.differential()
+        Skive = Evaluation(differentialShufflePath, savePath, br)
         pool.apply_async(Skive.linear, args=())
+    pool.close()
+    pool.join()
+
+
+def ImpossibleDifferential():
+    # Collect the Longest Truncated IDC Propagation of shuffle with higher ADs & ALs
+    pool = multiprocessing.Pool(4)
+    for br in branchList:
+        linearShufflePath = r'ResultLinear/{}_branch.pkl'.format(br)
+        savePath = r'ResultImpossibleDifferential/{}_branch.txt'.format(br)
+        Skive = Evaluation(linearShufflePath, savePath, br)
+        # Skive.impossibleDifferential()
+        pool.apply_async(Skive.impossibleDifferential, args=())
     pool.close()
     pool.join()
 
@@ -113,7 +147,8 @@ if __name__ == '__main__':
 
     # Diffusion()
     # Differential()
-    Linear()
+    # Linear()
+    ImpossibleDifferential()
 
     print('\n======\n Done \n======\n')
     print('TimeCost: ', time.time() - times)

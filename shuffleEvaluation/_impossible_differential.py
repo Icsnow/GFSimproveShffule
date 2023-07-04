@@ -5,9 +5,9 @@ from gurobipy import GRB
 import numpy as np
 
 
-def generate_impossibleDifferential_Model(permutation, Round, activate_bit_input, activate_bit_output):
-    Branch = len(permutation)
-    inverse_permutation = [permutation.index(i) for i in range(Branch)]
+def generate_impossibleDifferential_Model(shuffle, Round, activate_bit_input, activate_bit_output):
+    Branch = len(shuffle)
+    inverse_shuffle = [shuffle.index(i) for i in range(Branch)]
 
     # Variables
     m = gp.Model('Truncated Impossible Differential Evaluation')
@@ -27,20 +27,20 @@ def generate_impossibleDifferential_Model(permutation, Round, activate_bit_input
     # XOR constraint
     # first round
     for b in range(Branch)[::2]:
-        m.addConstr(x_in[0, b] + x_in[0, b + 1] - x[1, permutation[b + 1]] >= 0, name='')
-        m.addConstr(x_in[0, b] - x_in[0, b + 1] + x[1, permutation[b + 1]] >= 0, name='')
-        m.addConstr(- x_in[0, b] + x_in[0, b + 1] + x[1, permutation[b + 1]] >= 0, name='')
+        m.addConstr(x_in[0, b] + x_in[0, b + 1] - x[1, shuffle[b + 1]] >= 0, name='')
+        m.addConstr(x_in[0, b] - x_in[0, b + 1] + x[1, shuffle[b + 1]] >= 0, name='')
+        m.addConstr(- x_in[0, b] + x_in[0, b + 1] + x[1, shuffle[b + 1]] >= 0, name='')
 
-        m.addConstr(x[1, b] + x_in[0, inverse_permutation[b + 1]] - x[2, permutation[b + 1]] >= 0, name='')
-        m.addConstr(x[1, b] - x_in[0, inverse_permutation[b + 1]] + x[2, permutation[b + 1]] >= 0, name='')
-        m.addConstr(- x[1, b] + x_in[0, inverse_permutation[b + 1]] + x[2, permutation[b + 1]] >= 0, name='')
+        m.addConstr(x[1, b] + x_in[0, inverse_shuffle[b + 1]] - x[2, shuffle[b + 1]] >= 0, name='')
+        m.addConstr(x[1, b] - x_in[0, inverse_shuffle[b + 1]] + x[2, shuffle[b + 1]] >= 0, name='')
+        m.addConstr(- x[1, b] + x_in[0, inverse_shuffle[b + 1]] + x[2, shuffle[b + 1]] >= 0, name='')
 
     # middle round
     for r in range(2, Round):
         for b in range(Branch)[::2]:
-            m.addConstr(x[r, b] + x[r - 1, inverse_permutation[b + 1]] - x[r + 1, permutation[b + 1]] >= 0, name='')
-            m.addConstr(x[r, b] - x[r - 1, inverse_permutation[b + 1]] + x[r + 1, permutation[b + 1]] >= 0, name='')
-            m.addConstr(- x[r, b] + x[r - 1, inverse_permutation[b + 1]] + x[r + 1, permutation[b + 1]] >= 0, name='')
+            m.addConstr(x[r, b] + x[r - 1, inverse_shuffle[b + 1]] - x[r + 1, shuffle[b + 1]] >= 0, name='')
+            m.addConstr(x[r, b] - x[r - 1, inverse_shuffle[b + 1]] + x[r + 1, shuffle[b + 1]] >= 0, name='')
+            m.addConstr(- x[r, b] + x[r - 1, inverse_shuffle[b + 1]] + x[r + 1, shuffle[b + 1]] >= 0, name='')
 
     m.write('impossible_differential.lp')
     m.optimize()
