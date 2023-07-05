@@ -40,7 +40,7 @@ def generate_Differential_Model(shuffle):
 
     m.setObjective(sum(x[r, i] for i in range(0, Branch)[::2] for r in range(1, Round))
                    + sum(x_in[0, i] for i in range(0, Branch)[::2]), GRB.MINIMIZE)
-    m.write('differential.lp')
+    # m.write('differential.lp')
     m.optimize()
     return m.Objval
 

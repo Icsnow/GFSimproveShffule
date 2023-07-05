@@ -41,6 +41,6 @@ def generate_Linear_Model(permutation):
 
     m.setObjective(sum(x[r, i] for i in range(1, Branch)[::2] for r in range(1, Round))
                    + sum(x_in[0, i] for i in range(1, Branch)[::2]), GRB.MINIMIZE)
-    m.write('linear.lp')
+    # m.write('linear.lp')
     m.optimize()
     return m.Objval

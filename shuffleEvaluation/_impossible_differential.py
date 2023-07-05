@@ -42,19 +42,19 @@ def generate_impossibleDifferential_Model(shuffle, Round, activate_bit_input, ac
             m.addConstr(x[r, b] - x[r - 1, inverse_shuffle[b + 1]] + x[r + 1, shuffle[b + 1]] >= 0, name='')
             m.addConstr(- x[r, b] + x[r - 1, inverse_shuffle[b + 1]] + x[r + 1, shuffle[b + 1]] >= 0, name='')
 
-    m.write('impossible_differential.lp')
+    # m.write('impossible_differential.lp')
     m.optimize()
     return m.Status
 
 
-if __name__ == '__main__':
-    for t_round in range(5, 30):
-        branch = 6
-        ac_position = np.eye(6)
-
-        for ac_in in ac_position:
-            for ac_out in ac_position:
-                # print(ac_in, ac_out)
-                if generate_impossibleDifferential_Model([1, 2, 5, 0, 3, 4], t_round, ac_in, ac_out) == 2:
-                    print('===\n', t_round, '\n===')
-                    break
+# if __name__ == '__main__':
+#     for t_round in range(5, 30):
+#         branch = 6
+#         ac_position = np.eye(6)
+#
+#         for ac_in in ac_position:
+#             for ac_out in ac_position:
+#                 # print(ac_in, ac_out)
+#                 if generate_impossibleDifferential_Model([1, 2, 5, 0, 3, 4], t_round, ac_in, ac_out) == 2:
+#                     print('===\n', t_round, '\n===')
+#                     break
