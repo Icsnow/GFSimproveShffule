@@ -14,7 +14,7 @@ from _differential import generate_Differential_Model
 from _linear import generate_Linear_Model
 from _impossible_differential import generate_impossibleDifferential_Model
 from _DS_MITM import gen_DSMITM_model
-# from _division_property import gen_divisionProperty_model
+# from _division_property import solve_divisionProperty_model
 
 
 class Evaluation:
@@ -179,7 +179,7 @@ def DS_MITM():
 
 if __name__ == '__main__':
     # [4, 6, 8, 10, 12, 14, 16]
-    branchList = [4, 6, 8, 10, 12, 14, 16]
+    branchList = [4, 6]
 
     # number of shuffle classes may pick when each evaluation
     step = 3
