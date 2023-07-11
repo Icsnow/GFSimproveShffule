@@ -13,6 +13,7 @@ from _diffusion import DR_max_Search
 from _differential import generate_Differential_Model
 from _linear import generate_Linear_Model
 from _impossible_differential import generate_impossibleDifferential_Model
+from _zc_linear import generate_zcLinear_Model
 from _DS_MITM import gen_DSMITM_model
 # from _division_property import solve_divisionProperty_model
 
@@ -65,7 +66,7 @@ class Evaluation:
                 linear_result[sk] = v + [int(generate_Linear_Model(sk))]
             else:
                 break
-        linear_result = dict(sorted(linear_result.items(), key=lambda  key:(key[1][2]), reverse=True))
+        linear_result = dict(sorted(linear_result.items(), key=lambda key: (key[1][2]), reverse=True))
 
         self.save_file(linear_result)
 
@@ -77,7 +78,7 @@ class Evaluation:
                   shuffles.get(next(iter(shuffles)))[2] - step]
         idc_result = dict()
         for sk, v in shuffles.items():
-            if all(border[i] < v[i] for i in range(4)):
+            if all(border[i] < v[i] for i in range(3)):
                 for t_round in range(5, 99):
                     ac_position = np.eye(self.branch)
                     flag = 0
@@ -93,6 +94,31 @@ class Evaluation:
         idc_result = dict(sorted(idc_result.items(), key=lambda  key:(key[1][3])))
         self.save_file(idc_result)
 
+    def zc_linear(self):
+        with open(self.inflowFilePath, 'rb') as fp:
+            shuffles = pickle.load(fp)
+        border = [-1,
+                  shuffles.get(next(iter(shuffles)))[1] - step,
+                  shuffles.get(next(iter(shuffles)))[2] - step,
+                  shuffles.get(next(iter(shuffles)))[3] - step]
+        zcl_result = dict()
+        for sk, v in shuffles.items():
+            if all(border[i] < v[i] for i in range(4)):
+                for t_round in range(5, 99):
+                    ac_position = np.eye(self.branch)
+                    flag = 0
+                    for ac_in in ac_position:
+                        for ac_out in ac_position:
+                            if generate_zcLinear_Model(sk, t_round, ac_in, ac_out) == 3:
+                                flag = 1
+                                break
+                        if flag: break
+                    if not flag:
+                        zcl_result[sk] = v + [t_round]
+                        break
+        zcl_result = dict(sorted(zcl_result.items(), key=lambda  key:(key[1][4])))
+        self.save_file(zcl_result)
+
     def ds_mitm(self):
         with open(self.inflowFilePath, 'rb') as fp:
             shuffles = pickle.load(fp)
@@ -101,9 +127,10 @@ class Evaluation:
         border = [shuffles.get(next(iter(shuffles)))[0],
                   shuffles.get(next(iter(shuffles)))[1],
                   shuffles.get(next(iter(shuffles)))[2],
-                  shuffles.get(next(iter(shuffles)))[3]]
+                  shuffles.get(next(iter(shuffles)))[3],
+                  shuffles.get(next(iter(shuffles)))[4]]
         for sk, v in shuffles.items():
-            if all(abs(v[i] - border[i] < step) for i in range(4)):
+            if all(abs(v[i] - border[i] < step) for i in range(5)):
                 for r_round in range(5, 99):
                     model = gen_DSMITM_model(r_round, self.branch, sk)
                     model.optimize()
@@ -112,7 +139,7 @@ class Evaluation:
                     else:
                         result_ds_mitm[sk] = v + [(r_round, int(degree))]
                         break
-        result_ds_mitm = dict(sorted(result_ds_mitm.items(), key=lambda  key:(key[1][4])))
+        result_ds_mitm = dict(sorted(result_ds_mitm.items(), key=lambda  key:(key[1][5])))
         self.save_file(result_ds_mitm)
 
 '''
@@ -122,11 +149,15 @@ Methods of
 
 def Diffusion():
     # Collect the DR_max of each shuffle
+    pool = multiprocessing.Pool(4)
     for br in tqdm(branchList):
         pairEqCSPath = r"../shuffleGeneration/PairEquivalentShuffles/{}_BranchPairEquivalentShuffles.npy".format(br)
         savePath = r'ResultDiffusion/{}_branch.txt'.format(br)
         Skive = Evaluation(pairEqCSPath, savePath, br)
-        Skive.diffusion()
+        # Skive.diffusion()
+        pool.apply_async(Skive.diffusion, args=())
+    pool.close()
+    pool.join()
 
 
 def Differential():
@@ -137,7 +168,8 @@ def Differential():
         diffusedShufflePath = r'ResultDiffusion/{}_branch.pkl'.format(br)
         savePath = r'ResultDifferential/{}_branch.txt'.format(br)
         Skive = Evaluation(diffusedShufflePath, savePath, br)
-        pool.apply_async(Skive.differential, args=())
+        # Skive.differential()
+        pool.apply_async(Skive.differential)
     pool.close()
     pool.join()
 
@@ -149,7 +181,8 @@ def Linear():
         differentialShufflePath = r'ResultDifferential/{}_branch.pkl'.format(br)
         savePath = r'ResultLinear/{}_branch.txt'.format(br)
         Skive = Evaluation(differentialShufflePath, savePath, br)
-        pool.apply_async(Skive.linear, args=())
+        # Skive.linear()
+        pool.apply_async(Skive.linear)
     pool.close()
     pool.join()
 
@@ -166,40 +199,53 @@ def ImpossibleDifferential():
     pool.close()
     pool.join()
 
-def DS_MITM():
-    # pool = multiprocessing.Pool(4)
+
+def ZeroCorrespondLinear():
+    # Collect the Longest Truncated ZC Propagation of shuffle with longer IDC trail
+    pool = multiprocessing.Pool(4)
     for br in branchList:
-        impossibleDifferentialShufflePath = r'ResultImpossibleDifferential/{}_branch.pkl'.format(br)
+        idcShufflePath = r'ResultImpossibleDifferential/{}_branch.pkl'.format(br)
+        savePath = r'ResultZCLinear/{}_branch.txt'.format(br)
+        Skive = Evaluation(idcShufflePath, savePath, br)
+        # Skive.zc_linear()
+        pool.apply_async(Skive.zc_linear, args=())
+    pool.close()
+    pool.join()
+
+
+def DS_MITM():
+    pool = multiprocessing.Pool(4)
+    for br in branchList:
+        impossibleDifferentialShufflePath = r'ResultZCLinear/{}_branch.pkl'.format(br)
         savePath = r'ResultDSMITM/{}_branch.txt'.format(br)
         Skive = Evaluation(impossibleDifferentialShufflePath, savePath, br)
-        Skive.ds_mitm()
-        # pool.apply_async(Skive.ds_mitm, args=())
-    # pool.close()
-    # pool.join()
+        # Skive.ds_mitm()
+        pool.apply_async(Skive.ds_mitm, args=())
+    pool.close()
+    pool.join()
+
+
+def Integral():
+
 
 if __name__ == '__main__':
     # [4, 6, 8, 10, 12, 14, 16]
-    branchList = [4, 6]
+    branchList = [4, 6, 8, 10]
 
     # number of shuffle classes may pick when each evaluation
     step = 3
-
-
     times = time.time()
 
     # Diffusion()
     # Differential()
     # Linear()
     # ImpossibleDifferential()
-    DS_MITM()
+    # ZeroCorrespondLinear()
+    # DS_MITM()
+    Integral
 
     print('\n======\n Done \n======\n')
     print('TimeCost: ', time.time() - times)
-
-
-
-
-
 
 
 # def call_back(result):
