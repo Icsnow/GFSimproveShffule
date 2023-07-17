@@ -1,5 +1,10 @@
 
 from collections import deque
+import multiprocessing
+import time
+import numpy
+import pickle
+
 
 def DR_max_Search(shuffle):
     border_round = len(shuffle)
@@ -26,12 +31,29 @@ def DR_max_Search(shuffle):
     return max_round
 
 
-
-if __name__ == '__main__':
-    # the shuffles in 2010-FSE-[Improving the Generalized Feistel]
-    A = [[9,0,1,2,3,4,5,6,7,8], [2,0,4,1,6,3,8,5,9,7], [5,0,7,2,9,6,3,8,1,4], [3,0,1,4,7,2,5,8,9,6], [3,0,7,4,1,6,5,8,9,2]]
-    B = [[7,0,1,2,3,4,5,6], [2,0,4,1,6,3,7,5], [3,0,1,4,7,2,5,6], [3,0,7,4,5,6,1,2]]
-    C = [[15,0,1,2,3,4,5,6,7,8,9,10,11,12,13,14], [2,0,4,1,6,3,8,5,10,7,12,9,14,11,15,13], [1,2,9,4,15,6,5,8,13,10,7,14,11,12,3,0],
-         [1,2,11,4,9,6,7,8,15,12,5,10,3,0,13,14], [1,2,11,4,9,6,15,8,5,12,7,10,3,0,13,14]]
-    for a in A+B+C:
-        print(DR_max_Search(a))
+# if __name__ == '__main__':
+#     # [4, 6, 8, 10, 12, 14, 16]
+#     branchList = [4, 6, 8, 10, 12, 14, 16]
+#
+#     # number of shuffle classes may pick when each evaluation
+#     times = time.time()
+#
+#     for br in branchList:
+#         pairEqCSPath = r"../shuffleGeneration/PairEquivalentShuffles/{}_BranchPairEquivalentShuffles.npy".format(br)
+#         savePath = r'ResultDiffusion/{}_branch.pkl'.format(br)
+#         shuffles = numpy.load(pairEqCSPath)
+#
+#         pool = multiprocessing.Pool(4)
+#         for s in shuffles:
+#             pool.apply_async(DR_max_Search, args=(s, ))
+#         pool.close()
+#         pool.join()
+#         with open(savePath, 'wb') as fp:
+#             pickle.dump(obj, fp)
+#
+#         with open(self.outflowFilePath[:-4] + '.txt', 'w+') as f:
+#             for k, v in obj.items():
+#                 f.write(str(k) + ' : ' + str(v) + '\n')
+#
+#     print('\n======\n Done \n======\n')
+#     print('TimeCost: ', time.time() - times)

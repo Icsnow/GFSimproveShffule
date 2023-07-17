@@ -42,7 +42,7 @@ def generate_zcLinear_Model(shuffle, Round, activate_bit_input, activate_bit_out
             m.addConstr(x[r, b+1] - x[r - 1, inverse_shuffle[b]] + x[r + 1, shuffle[b]] >= 0, name='')
             m.addConstr(- x[r, b+1] + x[r - 1, inverse_shuffle[b]] + x[r + 1, shuffle[b]] >= 0, name='')
 
-    m.write('zc_linear.lp')
+    # m.write('zc_linear.lp')
     m.optimize()
     return m.Status
 
