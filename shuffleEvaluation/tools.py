@@ -116,7 +116,3 @@ if __name__ == '__main__':
     # print(_linear.generate_Linear_Model(Shieq))
 
 
-# ====================================== Division Property ========================================== #
-
-
-
