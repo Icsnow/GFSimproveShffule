@@ -2,7 +2,10 @@
 
 import gurobipy as gp
 from gurobipy import GRB
-
+import time
+import pickle
+from tqdm import tqdm
+import tools
 
 def generate_Differential_Model(shuffle):
     """
@@ -15,6 +18,7 @@ def generate_Differential_Model(shuffle):
 
     # Variables
     m = gp.Model('Truncated Differential Evaluation')
+    m.setParam('OutputFlag', 0)
     x_in = m.addVars(1, Branch, vtype=GRB.BINARY, name='x')
     midRound = [(r, b) for b in range(Branch)[::2] for r in range(1, Round+1)]
     x = m.addVars(midRound, vtype=GRB.BINARY, name='x')
@@ -42,7 +46,26 @@ def generate_Differential_Model(shuffle):
                    + sum(x_in[0, i] for i in range(0, Branch)[::2]), GRB.MINIMIZE)
     # m.write('differential.lp')
     m.optimize()
-    return m.Objval
+    return int(m.Objval)
 
 
-# generate_Differential_Model([1, 0, 3, 2])
+if __name__ == '__main__':
+
+    br_list = [4, 6, 8] #, 10, 12, 14, 16
+    for br in br_list:
+        with open(r"ResultZCLinear/{}_branch_zc.pkl".format(br), 'rb') as f:
+            SHUFFLES = pickle.load(f)
+        result = dict()
+        border = [SHUFFLES.get(next(iter(SHUFFLES)))[0],
+                  SHUFFLES.get(next(iter(SHUFFLES)))[1],
+                  SHUFFLES.get(next(iter(SHUFFLES)))[2],
+                  SHUFFLES.get(next(iter(SHUFFLES)))[3]]
+        for sk, v in tqdm(SHUFFLES.items()):
+            if all((abs(v[i] - border[i]) < 3) for i in range(4)):
+                result[sk] = v + [generate_Differential_Model(sk)]
+
+        tools.save_file(result, r'ResultDifferential/{}_branch_dc'.format(br), True)
+
+    print('\n\n******\n Done \n******\n\n')
+    # print(generate_Differential_Model((15, 4, 3, 0, 13, 6, 1, 2, 7, 12, 11, 8, 5, 14, 9, 10)))
+

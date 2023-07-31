@@ -2,7 +2,9 @@
 
 import gurobipy as gp
 from gurobipy import GRB
-
+import pickle
+from tqdm import tqdm
+import tools
 
 def generate_Linear_Model(permutation):
     """
@@ -15,6 +17,7 @@ def generate_Linear_Model(permutation):
 
     # Variables
     m = gp.Model('Truncated Linear Evaluation')
+    m.setParam('OutputFlag', 0)
     # iniRound = [(0, b) for b in range(0, Branch)[::2]]
     x_in = m.addVars(1, Branch, vtype=GRB.BINARY, name='x0')
     midRound = [(r, b) for b in range(1, Branch)[::2] for r in range(1, Round+1)]
@@ -43,4 +46,24 @@ def generate_Linear_Model(permutation):
                    + sum(x_in[0, i] for i in range(1, Branch)[::2]), GRB.MINIMIZE)
     # m.write('linear.lp')
     m.optimize()
-    return m.Objval
+    return int(m.Objval)
+
+
+if __name__ == '__main__':
+    br_list = [4, 6, 8, 10, 12, 14, 16]
+    for br in br_list:
+        with open(r"ResultDifferential/{}_branch_dc.pkl".format(br), 'rb') as f:
+            SHUFFLES = pickle.load(f)
+        result = dict()
+        border = [SHUFFLES.get(next(iter(SHUFFLES)))[0],
+                  SHUFFLES.get(next(iter(SHUFFLES)))[1],
+                  SHUFFLES.get(next(iter(SHUFFLES)))[2],
+                  SHUFFLES.get(next(iter(SHUFFLES)))[3],
+                  SHUFFLES.get(next(iter(SHUFFLES)))[4]]
+        for sk, v in tqdm(SHUFFLES.items()):
+            if all((abs(v[i] - border[i]) < 3) for i in range(5)):
+                result[sk] = v + [generate_Linear_Model(sk)]
+
+        tools.save_file(result, r'ResultLinear/{}_branch_lc'.format(br), True)
+
+    print('\n\n******\n Done \n******\n\n')

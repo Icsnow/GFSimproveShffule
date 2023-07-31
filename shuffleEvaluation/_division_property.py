@@ -4,7 +4,7 @@ import multiprocessing
 import pickle
 import gurobipy as gp
 from gurobipy import GRB
-
+import tools
 
 class DivisionProperty:
     """
@@ -102,53 +102,51 @@ class DivisionProperty:
         return s_flag
 
     @staticmethod
-    def call_back(result):
+    def call_back(ret):
 
         global varify_flag
-        varify_flag.append(not result)
+        varify_flag.append(not ret)
 
-        if result:
+        if ret:
             pool.terminate()
 
 
 if __name__ == '__main__':
 
-    br = 16
-    shuffle_dict = {(9, 6, 13, 0, 11, 2, 15, 4, 3, 10, 7, 8, 1, 12, 5, 14) : [8, 44, 44, 15, 15, 12],
-                    (1, 6, 7, 0, 9, 2, 15, 4, 5, 14, 3, 8, 13, 10, 11, 12) : [8, 44, 44, 15, 15, 12],
-                    (1, 12, 9, 0, 5, 2, 15, 4, 11, 6, 3, 8, 7, 10, 13, 14) : [8, 44, 44, 16, 16, 12],
-                    (1, 4, 13, 0, 7, 2, 9, 10, 3, 6, 15, 8, 11, 12, 5, 14) : [8, 44, 44, 16, 16, 12]
-                    }
+    br_list = [4, 6, 8, 10, 12, 14, 16]
+    for br in br_list:
+        with open(r"ResultLinear/{}_branch_lc.pkl".format(br), 'rb') as f:
+            SHUFFLES = pickle.load(f)
+        result = dict()
+        border = [SHUFFLES.get(next(iter(SHUFFLES)))[0],
+                  SHUFFLES.get(next(iter(SHUFFLES)))[1],
+                  SHUFFLES.get(next(iter(SHUFFLES)))[2],
+                  SHUFFLES.get(next(iter(SHUFFLES)))[3],
+                  SHUFFLES.get(next(iter(SHUFFLES)))[4],
+                  SHUFFLES.get(next(iter(SHUFFLES)))[5]]
+        for sk, v in SHUFFLES.items():
+            if all((abs(v[i] - border[i]) < 2) for i in range(6)):
+                print(border, sk, v)
+                global varify_flag
+                r = 10
+                while r < 30:
+                    varify_flag = []
+                    pool = multiprocessing.Pool(4)
+                    for ac in range(1, 16):
+                        dp = DivisionProperty(r, sk, ac, )
+                        pool.apply_async(dp.solve_model, args=(), callback=dp.call_back)
+                    pool.close()
+                    pool.join()
 
-    global varify_flag
-    for sk, v in shuffle_dict.items():
-        r = 10
-        while r < 50:
-            varify_flag = []
-            pool = multiprocessing.Pool(4)
-            for ac in range(1, 16):
-                dp = DivisionProperty(r, sk, ac, )
-                pool.apply_async(dp.solve_model, args=(), callback=dp.call_back)
-            pool.close()
-            pool.join()
+                    if all(varify_flag):
+                        result[sk] = v + [r-1]
+                        break
+                    else:
+                        r += 1
+        tools.save_file(result, r'ResultIntegral\{}_branch_integral'.format(br), False)
 
-            if all(varify_flag):
-                shuffle_dict[sk] = v + [r-1]
-                break
-            else:
-                r += 1
+    print('\n\n******\n Done \n******\n\n')
 
-    for sk, v in shuffle_dict.items():
-        print(str(sk) + ': ' + str(v))
-    print('\n\n====\n Done \n====\n\n')
-
-    shuffle_dict = dict(sorted(shuffle_dict.items(), key=lambda key: (key[1][6])))
-    with open('ResultIntegral/{}_branch.pkl'.format(br), 'wb') as fp:
-        pickle.dump(shuffle_dict, fp)
-
-    with open('ResultIntegral/{}_branch.txt'.format(br), 'w+') as f:
-        for k, v in shuffle_dict.items():
-            f.write(str(k) + ': ' + str(v) + '\n')
 
 
 

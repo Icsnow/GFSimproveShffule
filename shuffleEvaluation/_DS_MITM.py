@@ -2,11 +2,16 @@
 
 import gurobipy as gp
 from gurobipy import GRB
+import pickle
+import time
+from tqdm import tqdm
+import tools
 
 
 def gen_DSMITM_model(ROUND, BRANCH, SHUFFLE):
 
     m = gp.Model('DS-MITM')
+    m.setParam('OutputFlag', 0)
     x = m.addVars(ROUND+1, BRANCH, vtype=GRB.BINARY, name='TypeX')
     y = m.addVars(ROUND+1, BRANCH, vtype=GRB.BINARY, name='TypeY')
     z = m.addVars(ROUND, int(BRANCH/2), vtype=GRB.BINARY, name='TypeZ')
@@ -43,28 +48,39 @@ def gen_DSMITM_model(ROUND, BRANCH, SHUFFLE):
     m.addConstr(sum(x[0, b] for b in range(BRANCH)) >= 1, name='')
     m.addConstr(sum(y[ROUND, b] for b in range(BRANCH)) >= 1, name='')
 
-    # NO.ac_cells <= NO.(Key_length/size_cells) == we remove this constraint in ideal model==
-    m.addConstr(sum(z[r, b] for b in range(int(BRANCH/2)) for r in range(ROUND)) <= BRANCH-1, name='')
+    # NO.ac_cells <= NO.(Key_length(=2 * branch_size)/size_cells) == we remove this constraint in ideal model==
+    m.addConstr(sum(z[r, b] for b in range(int(BRANCH/2)) for r in range(ROUND)) <= 2 * BRANCH-1, name='')
 
     # obj function
     m.setObjective(sum(z[r, b] for b in range(int(BRANCH/2)) for r in range(ROUND)), GRB.MINIMIZE)
-    # m.write('TWINE_DS-MITM_model.lp')
+    # m.write('DS-MITM_model.lp')
     return m
+
 
 if __name__ == '__main__':
 
-    SHUFFLET = [1, 4, 3, 0, 5, 2]
-    # SHUFFLE_rev = [1, 2, 11, 6, 3, 0, 9, 4, 7, 10, 13, 14, 5, 8, 15, 12]
+    # time_start = time.time()
 
-    degAB = -1
-    for r_round in range(5, 99):
-        b_branch = len(SHUFFLET)
-        model = gen_DSMITM_model(r_round, b_branch, SHUFFLET)
-        model.optimize()
-        if model.Status == 2:
-            degAB = model.Objval
-        else:
-            print('=====\n', r_round-1, 'is the longest DS-MITM_Dis round.', '\n=====')
-            print('Deg =', degAB)
-            break
-        pass
+    br_list = [4, 6, 8, 10, 12, 14, 16]
+    for br in br_list:
+        with open(r"ResultDiffusion/{}_branch_diffusion.pkl".format(br), 'rb') as f:
+            SHUFFLES = pickle.load(f)
+        result = dict()
+        border = SHUFFLES.get(next(iter(SHUFFLES)))[-1]
+        for sk, v in tqdm(SHUFFLES.items()):
+            # degAB = -1
+            if abs(v[-1] - border) < 3:
+                for r_round in range(5, 30):
+                    b_branch = len(sk)
+                    model = gen_DSMITM_model(r_round, b_branch, sk)
+                    model.optimize()
+                    # if model.Status == 2:
+                    #     degAB = model.Objval
+
+                    if model.Status == 3:
+                        result[sk] = v + [r_round - 1]
+                        break
+            tools.save_file(result, r'ResultDSMITM/{}_branch_DSMITM'.format(br), False)
+        # if t_round go to 29, the corresponding shuffle will be discarded.
+
+    # print('\n\n ===\n time cost: ' + str(time.time() - time_start), '\n === \n\n')

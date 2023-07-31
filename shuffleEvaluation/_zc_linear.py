@@ -3,6 +3,9 @@
 import gurobipy as gp
 from gurobipy import GRB
 import numpy as np
+import pickle
+from tqdm import tqdm
+import tools
 
 
 def generate_zcLinear_Model(shuffle, Round, activate_bit_input, activate_bit_output):
@@ -11,13 +14,13 @@ def generate_zcLinear_Model(shuffle, Round, activate_bit_input, activate_bit_out
 
     # Variables
     m = gp.Model('Multidimensional Differential Evaluation')
+    m.setParam('OutputFlag', 0)
     x_in = m.addVars(1, Branch, vtype=GRB.BINARY, name='x')
 
     midRound = [(r, b) for b in range(1, Branch)[::2] for r in range(1, Round+1)]
     x = m.addVars(midRound, vtype=GRB.BINARY, name='x')
 
     # Initial constraint
-    # 改！！！
     for i in range(Branch):
         m.addConstr(x_in[0, i] == activate_bit_input[i], name='')
     for j in range(1, Branch)[::2]:
@@ -48,18 +51,27 @@ def generate_zcLinear_Model(shuffle, Round, activate_bit_input, activate_bit_out
 
 
 if __name__ == '__main__':
-    S = [1,2,9,4,15,6,5,8,13,10,7,14,11,12,3,0]
-    for t_round in range(5, 30):
-        ac_position = np.eye(len(S))
-
-        flag = 0
-        for ac_in in ac_position:
-            for ac_out in ac_position:
-                # print(ac_in, ac_out)
-                if generate_zcLinear_Model(S, t_round, ac_in, ac_out) == 3:
-                    flag = 1
-                    break
-            if flag: break
-        if not flag:
-            print('===\n', t_round, '\n===')
-            break
+    br_list = [4, 6, 8, 10, 12, 14, 16]
+    for br in br_list:
+        with open(r"ResultImpossibleDifferential/{}_branch_idc.pkl".format(br), 'rb') as f:
+            SHUFFLES = pickle.load(f)
+        result = dict()
+        border = [SHUFFLES.get(next(iter(SHUFFLES)))[0],
+                  SHUFFLES.get(next(iter(SHUFFLES)))[1],
+                  SHUFFLES.get(next(iter(SHUFFLES)))[2]]
+        for sk, v in tqdm(SHUFFLES.items()):
+            if all(abs(v[i] - border[i]) < 3 for i in range(3)):
+                for t_round in range(5, 30):
+                    ac_position = np.eye(br)
+                    flag = 0
+                    for ac_in in ac_position:
+                        for ac_out in ac_position:
+                            if generate_zcLinear_Model(sk, t_round, ac_in, ac_out) == 3:
+                                flag = 1
+                                break
+                        if flag:
+                            break
+                    if not flag:
+                        result[sk] = v + [t_round]
+                        break
+        tools.save_file(result, r'ResultZCLinear/{}_branch_zc'.format(br), False)

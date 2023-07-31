@@ -1,59 +1,77 @@
-
-from collections import deque
-import multiprocessing
 import time
-import numpy
-import pickle
+from collections import deque
+import numpy as np
+from tqdm import tqdm
+import tools
+from multiprocessing import Pool
 
 
-def DR_max_Search(shuffle):
-    border_round = len(shuffle)
-    max_round = -1
+def one_pos(shuffle, branch, pos):
+    d_round = 1
+    queue = deque([pos])
+    t_queue = deque()
 
-    for i in range(border_round):
-        queue = deque([i])
-        diffuse_round = 1
-        temp_queue = deque()
+    while d_round < 12:
+        ini_shuffle = set([i for i in range(branch)])
+        while queue:
+            node = queue.popleft()
+            ini_shuffle.discard(node)
 
-        while len(queue) < border_round and diffuse_round < border_round:
-            while queue:
-                node = queue.popleft()
-                if node % 2 == 0 and node+1 not in queue:
-                    queue.append(node+1)
-                temp_queue.append(shuffle[node])
+            if node % 2 == 0:
+                queue.append(node + 1)
+            t_queue.append(shuffle[node])
 
-            while temp_queue:
-                queue.append(temp_queue.popleft())
+        if not ini_shuffle:
+            break
 
-            diffuse_round += 1
+        d_round += 1
 
-        max_round = max(max_round, diffuse_round)
-    return max_round
+        while t_queue:
+            queue.append(t_queue.popleft())
+
+    if d_round == 12:
+        return 2 * branch
+    return d_round
 
 
-# if __name__ == '__main__':
-#     # [4, 6, 8, 10, 12, 14, 16]
-#     branchList = [4, 6, 8, 10, 12, 14, 16]
-#
-#     # number of shuffle classes may pick when each evaluation
-#     times = time.time()
-#
-#     for br in branchList:
-#         pairEqCSPath = r"../shuffleGeneration/PairEquivalentShuffles/{}_BranchPairEquivalentShuffles.npy".format(br)
-#         savePath = r'ResultDiffusion/{}_branch.pkl'.format(br)
-#         shuffles = numpy.load(pairEqCSPath)
-#
-#         pool = multiprocessing.Pool(4)
-#         for s in shuffles:
-#             pool.apply_async(DR_max_Search, args=(s, ))
-#         pool.close()
-#         pool.join()
-#         with open(savePath, 'wb') as fp:
-#             pickle.dump(obj, fp)
-#
-#         with open(self.outflowFilePath[:-4] + '.txt', 'w+') as f:
-#             for k, v in obj.items():
-#                 f.write(str(k) + ' : ' + str(v) + '\n')
-#
-#     print('\n======\n Done \n======\n')
-#     print('TimeCost: ', time.time() - times)
+def dr_max(shuffle):
+    ls = len(shuffle)
+    max_round = []
+    for i in shuffle:
+        max_round.append(one_pos(shuffle, ls, i))
+    return max(max_round)
+
+
+def rev(pp):
+    p_new = [-1 for _ in range(len(pp))]
+    for i in pp:
+        p_new[i] = pp.index(i)
+    return p_new
+
+
+if __name__ == '__main__':
+    timestart = time.time()
+    br_list = [4, 6, 8, 10, 12, 14, 16]
+    for br in br_list:
+        SHUFFLES = np.load(r'../shuffleGeneration/PairEquivalentShuffles/{}_BranchPairEquivalentShuffles.npy'.format(br))
+        # SHUFFLES = [(1, 6, 7, 0, 5, 2, 9, 4, 3, 8)]
+        ret = []
+        p = Pool(8)
+        for s in SHUFFLES:
+            s = tuple(s)
+            A = p.apply_async(dr_max, args=(s, ))
+            B = p.apply_async(dr_max, args=(rev(s), ))
+            # result[s] = [max(A.get(), B.get())]
+            ret.append((A.get(), B.get()))
+        p.close()
+        p.join()
+
+        # print(time.time() - timestart)
+        result = dict()
+        for s, v in zip(SHUFFLES, ret):
+            result[tuple(s)] = [max(v)]
+
+        tools.save_file(result, r'ResultDiffusion/{}_branch_diffusion'.format(br))
+        # for sk, v in result.items():
+        #     print(sk, v)
+    print(time.time() - timestart)

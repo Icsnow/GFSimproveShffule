@@ -1,0 +1,372 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="a5111ab8-4df0-496a-ae01-f8de7d971804" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/shuffleEvaluation/adraft.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/shuffleEvaluation/tools.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.name" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.name" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Varify/GFSequivalent.py" beforeDir="false" afterPath="$PROJECT_DIR$/Varify/GFSequivalent.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/adraft.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/shuffleEvaluation/ResultDSMITM/10_branch.pkl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/shuffleEvaluation/ResultDSMITM/10_branch.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/shuffleEvaluation/ResultDSMITM/12_branch.pkl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/shuffleEvaluation/ResultDSMITM/12_branch.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/shuffleEvaluation/ResultDSMITM/14_branch.pkl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/shuffleEvaluation/ResultDSMITM/14_branch.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/shuffleEvaluation/ResultDSMITM/16_branch.pkl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/shuffleEvaluation/ResultDSMITM/16_branch.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/shuffleEvaluation/ResultDSMITM/4_branch.pkl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/shuffleEvaluation/ResultDSMITM/4_branch.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/shuffleEvaluation/ResultDSMITM/6_branch.pkl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/shuffleEvaluation/ResultDSMITM/6_branch.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/shuffleEvaluation/ResultDSMITM/8_branch.pkl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/shuffleEvaluation/ResultDSMITM/8_branch.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/shuffleEvaluation/ResultDifferential/10_branch.pkl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/shuffleEvaluation/ResultDifferential/10_branch.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/shuffleEvaluation/ResultDifferential/12_branch.pkl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/shuffleEvaluation/ResultDifferential/12_branch.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/shuffleEvaluation/ResultDifferential/14_branch.pkl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/shuffleEvaluation/ResultDifferential/14_branch.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/shuffleEvaluation/ResultDifferential/16_branch.pkl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/shuffleEvaluation/ResultDifferential/16_branch.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/shuffleEvaluation/ResultDifferential/4_branch.pkl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/shuffleEvaluation/ResultDifferential/4_branch.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/shuffleEvaluation/ResultDifferential/6_branch.pkl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/shuffleEvaluation/ResultDifferential/6_branch.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/shuffleEvaluation/ResultDifferential/8_branch.pkl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/shuffleEvaluation/ResultDifferential/8_branch.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/shuffleEvaluation/ResultDiffusion/10_branch.pkl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/shuffleEvaluation/ResultDiffusion/10_branch.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/shuffleEvaluation/ResultDiffusion/12_branch.pkl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/shuffleEvaluation/ResultDiffusion/12_branch.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/shuffleEvaluation/ResultDiffusion/14_branch.pkl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/shuffleEvaluation/ResultDiffusion/14_branch.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/shuffleEvaluation/ResultDiffusion/16_branch.pkl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/shuffleEvaluation/ResultDiffusion/16_branch.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/shuffleEvaluation/ResultDiffusion/4_branch.pkl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/shuffleEvaluation/ResultDiffusion/4_branch.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/shuffleEvaluation/ResultDiffusion/6_branch.pkl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/shuffleEvaluation/ResultDiffusion/6_branch.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/shuffleEvaluation/ResultDiffusion/8_branch.pkl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/shuffleEvaluation/ResultDiffusion/8_branch.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/shuffleEvaluation/ResultImpossibleDifferential/10_branch.pkl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/shuffleEvaluation/ResultImpossibleDifferential/10_branch.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/shuffleEvaluation/ResultImpossibleDifferential/12_branch.pkl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/shuffleEvaluation/ResultImpossibleDifferential/12_branch.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/shuffleEvaluation/ResultImpossibleDifferential/14_branch.pkl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/shuffleEvaluation/ResultImpossibleDifferential/14_branch.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/shuffleEvaluation/ResultImpossibleDifferential/16_branch.pkl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/shuffleEvaluation/ResultImpossibleDifferential/16_branch.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/shuffleEvaluation/ResultImpossibleDifferential/4_branch.pkl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/shuffleEvaluation/ResultImpossibleDifferential/4_branch.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/shuffleEvaluation/ResultImpossibleDifferential/6_branch.pkl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/shuffleEvaluation/ResultImpossibleDifferential/6_branch.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/shuffleEvaluation/ResultImpossibleDifferential/8_branch.pkl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/shuffleEvaluation/ResultImpossibleDifferential/8_branch.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/shuffleEvaluation/ResultLinear/10_branch.pkl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/shuffleEvaluation/ResultLinear/10_branch.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/shuffleEvaluation/ResultLinear/12_branch.pkl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/shuffleEvaluation/ResultLinear/12_branch.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/shuffleEvaluation/ResultLinear/14_branch.pkl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/shuffleEvaluation/ResultLinear/14_branch.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/shuffleEvaluation/ResultLinear/16_branch.pkl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/shuffleEvaluation/ResultLinear/16_branch.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/shuffleEvaluation/ResultLinear/4_branch.pkl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/shuffleEvaluation/ResultLinear/4_branch.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/shuffleEvaluation/ResultLinear/6_branch.pkl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/shuffleEvaluation/ResultLinear/6_branch.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/shuffleEvaluation/ResultLinear/8_branch.pkl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/shuffleEvaluation/ResultLinear/8_branch.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/shuffleEvaluation/ResultZCLinear/10_branch.pkl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/shuffleEvaluation/ResultZCLinear/10_branch.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/shuffleEvaluation/ResultZCLinear/12_branch.pkl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/shuffleEvaluation/ResultZCLinear/12_branch.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/shuffleEvaluation/ResultZCLinear/14_branch.pkl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/shuffleEvaluation/ResultZCLinear/14_branch.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/shuffleEvaluation/ResultZCLinear/16_branch.pkl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/shuffleEvaluation/ResultZCLinear/16_branch.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/shuffleEvaluation/ResultZCLinear/4_branch.pkl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/shuffleEvaluation/ResultZCLinear/4_branch.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/shuffleEvaluation/ResultZCLinear/6_branch.pkl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/shuffleEvaluation/ResultZCLinear/6_branch.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/shuffleEvaluation/ResultZCLinear/8_branch.pkl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/shuffleEvaluation/ResultZCLinear/8_branch.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/shuffleEvaluation/_DS_MITM.py" beforeDir="false" afterPath="$PROJECT_DIR$/shuffleEvaluation/_DS_MITM.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shuffleEvaluation/_differential.py" beforeDir="false" afterPath="$PROJECT_DIR$/shuffleEvaluation/_differential.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shuffleEvaluation/_diffusion.py" beforeDir="false" afterPath="$PROJECT_DIR$/shuffleEvaluation/_diffusion.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shuffleEvaluation/_division_property.py" beforeDir="false" afterPath="$PROJECT_DIR$/shuffleEvaluation/_division_property.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shuffleEvaluation/_impossible_differential.py" beforeDir="false" afterPath="$PROJECT_DIR$/shuffleEvaluation/_impossible_differential.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shuffleEvaluation/_linear.py" beforeDir="false" afterPath="$PROJECT_DIR$/shuffleEvaluation/_linear.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shuffleEvaluation/_mainEvaluation.py" beforeDir="false" afterPath="$PROJECT_DIR$/shuffleEvaluation/_mainEvaluation.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shuffleEvaluation/_zc_linear.py" beforeDir="false" afterPath="$PROJECT_DIR$/shuffleEvaluation/_zc_linear.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shuffleEvaluation/cycleDecomposition.py" beforeDir="false" afterPath="$PROJECT_DIR$/shuffleEvaluation/cycleDecomposition.py" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectId" id="2SPUx2eg7BDchYSU2hQu8g6reRF" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/Snow/Nutstore/1/Improve_Shuffle_in_GFS/DrawingPaper/FileUpdate/GFSimproveShffule&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  }
+}</component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\NutCloud\Improve_Shuffle_in_GFS\DrawingPaper\FileUpdate\GFSimproveShffule\shuffleEvaluation" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Python._division_property">
+    <configuration name="_differential" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="GFSimproveShffule" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/shuffleEvaluation" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/shuffleEvaluation/_differential.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="_division_property" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="GFSimproveShffule" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/shuffleEvaluation" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/shuffleEvaluation/_division_property.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="_linear" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="GFSimproveShffule" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/shuffleEvaluation" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/shuffleEvaluation/_linear.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="_zc_linear" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="GFSimproveShffule" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/shuffleEvaluation" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/shuffleEvaluation/_zc_linear.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="tools" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="GFSimproveShffule" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/shuffleEvaluation" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/shuffleEvaluation/tools.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Python._division_property" />
+        <item itemvalue="Python.tools" />
+        <item itemvalue="Python._linear" />
+        <item itemvalue="Python._differential" />
+        <item itemvalue="Python._zc_linear" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="a5111ab8-4df0-496a-ae01-f8de7d971804" name="Changes" comment="" />
+      <created>1689047953941</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1689047953941</updated>
+      <workItem from="1689047954770" duration="1602000" />
+      <workItem from="1689049580982" duration="8481000" />
+      <workItem from="1689065468305" duration="221000" />
+      <workItem from="1689084081766" duration="14113000" />
+      <workItem from="1689124954466" duration="8010000" />
+      <workItem from="1689136137769" duration="6907000" />
+      <workItem from="1689215949617" duration="2914000" />
+      <workItem from="1689221990573" duration="882000" />
+      <workItem from="1689255195035" duration="91000" />
+      <workItem from="1689257727279" duration="925000" />
+      <workItem from="1689262859135" duration="1416000" />
+      <workItem from="1689308263809" duration="166000" />
+      <workItem from="1689324217746" duration="3613000" />
+      <workItem from="1689355255351" duration="5474000" />
+      <workItem from="1689430562972" duration="1415000" />
+      <workItem from="1689435355851" duration="289000" />
+      <workItem from="1689491959225" duration="6466000" />
+      <workItem from="1689502236450" duration="3709000" />
+      <workItem from="1689506126708" duration="1936000" />
+      <workItem from="1689527430191" duration="1296000" />
+      <workItem from="1689565169374" duration="165000" />
+      <workItem from="1689565347399" duration="156000" />
+      <workItem from="1689565515262" duration="1941000" />
+      <workItem from="1689574980004" duration="10452000" />
+      <workItem from="1689607711035" duration="2323000" />
+      <workItem from="1689745119729" duration="8279000" />
+      <workItem from="1689827628689" duration="721000" />
+      <workItem from="1689951616278" duration="4866000" />
+      <workItem from="1689995886096" duration="1456000" />
+      <workItem from="1690098390422" duration="1688000" />
+      <workItem from="1690100104264" duration="16509000" />
+      <workItem from="1690125775765" duration="5721000" />
+      <workItem from="1690168454169" duration="4255000" />
+      <workItem from="1690184180190" duration="64000" />
+      <workItem from="1690203226771" duration="1977000" />
+      <workItem from="1690256283654" duration="1366000" />
+      <workItem from="1690274331011" duration="1761000" />
+      <workItem from="1690299590045" duration="254000" />
+      <workItem from="1690305228983" duration="16000" />
+      <workItem from="1690345505893" duration="510000" />
+      <workItem from="1690381878488" duration="1249000" />
+      <workItem from="1690427126655" duration="2018000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/_mainEvaluation_py$_mainEvaluation.coverage" NAME="_mainEvaluation Coverage Results" MODIFIED="1689566678321" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/shuffleEvaluation" />
+    <SUITE FILE_PATH="coverage/tools_py$_division_property.coverage" NAME="_division_property Coverage Results" MODIFIED="1690430799519" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/shuffleEvaluation" />
+    <SUITE FILE_PATH="coverage/_DS_MITM_py$_DS_MITM.coverage" NAME="_DS_MITM Coverage Results" MODIFIED="1690099011947" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/shuffleEvaluation" />
+    <SUITE FILE_PATH="coverage/_mainEvaluation_py$cycleDecomposition.coverage" NAME="cycleDecomposition Coverage Results" MODIFIED="1689222877401" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/shuffleEvaluation" />
+    <SUITE FILE_PATH="coverage/GFSimproveShffule$_mainEvaluation.coverage" NAME="_mainEvaluation Coverage Results" MODIFIED="1689049539025" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/shuffleEvaluation" />
+    <SUITE FILE_PATH="coverage/_impossible_differential_py$_differential.coverage" NAME="_differential Coverage Results" MODIFIED="1690345696673" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/shuffleEvaluation" />
+    <SUITE FILE_PATH="coverage/GFSimproveShffule$__test.coverage" NAME="# test Coverage Results" MODIFIED="1689048261190" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/shuffleEvaluation" />
+    <SUITE FILE_PATH="coverage/GFSequivalent_py$_linear.coverage" NAME="_linear Coverage Results" MODIFIED="1689748431620" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/shuffleEvaluation" />
+    <SUITE FILE_PATH="coverage/_mainEvaluation_py$adraft.coverage" NAME="adraft Coverage Results" MODIFIED="1689566240454" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/GFSequivalent_py$_DS_MITM.coverage" NAME="_DS_MITM Coverage Results" MODIFIED="1689957559341" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/shuffleEvaluation" />
+    <SUITE FILE_PATH="coverage/_impossible_differential_py$_zc_linear.coverage" NAME="_zc_linear Coverage Results" MODIFIED="1690299728854" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/shuffleEvaluation" />
+    <SUITE FILE_PATH="coverage/_mainEvaluation_py$GFSequivalent.coverage" NAME="GFSequivalent Coverage Results" MODIFIED="1689609843943" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Varify" />
+    <SUITE FILE_PATH="coverage/_impossible_differential_py$_linear.coverage" NAME="_linear Coverage Results" MODIFIED="1690345781984" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/shuffleEvaluation" />
+    <SUITE FILE_PATH="coverage/GFSequivalent_py$_division_property.coverage" NAME="_division_property Coverage Results" MODIFIED="1689749144884" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/shuffleEvaluation" />
+    <SUITE FILE_PATH="coverage/GFSimproveShffule$adraft.coverage" NAME="adraft Coverage Results" MODIFIED="1689049013316" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/GFSequivalent_py$_differential.coverage" NAME="_differential Coverage Results" MODIFIED="1689752493784" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/shuffleEvaluation" />
+    <SUITE FILE_PATH="coverage/GFSequivalent_py$_zc_linear.coverage" NAME="_zc_linear Coverage Results" MODIFIED="1689749103622" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/shuffleEvaluation" />
+    <SUITE FILE_PATH="coverage/tools_py$tools.coverage" NAME="tools Coverage Results" MODIFIED="1690382307972" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/shuffleEvaluation" />
+    <SUITE FILE_PATH="coverage/_impossible_differential_py$adraft__1_.coverage" NAME="adraft (1) Coverage Results" MODIFIED="1690176425776" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/shuffleEvaluation" />
+    <SUITE FILE_PATH="coverage/_impossible_differential_py$_diffusion.coverage" NAME="_diffusion Coverage Results" MODIFIED="1690176189309" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/shuffleEvaluation" />
+    <SUITE FILE_PATH="coverage/_impossible_differential_py$_DS_MITM.coverage" NAME="_DS_MITM Coverage Results" MODIFIED="1690101044877" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/shuffleEvaluation" />
+    <SUITE FILE_PATH="coverage/_mainEvaluation_py$_diffusion.coverage" NAME="_diffusion Coverage Results" MODIFIED="1689061822662" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/shuffleEvaluation" />
+    <SUITE FILE_PATH="coverage/GFSequivalent_py$_impossible_differential.coverage" NAME="_impossible_differential Coverage Results" MODIFIED="1689752423583" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/shuffleEvaluation" />
+    <SUITE FILE_PATH="coverage/_mainEvaluation_py$model_TWINE.coverage" NAME="model_TWINE Coverage Results" MODIFIED="1689091661300" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/../../../../GFS_ex/Integral/division_temp/Longest Division Property Trail/RecodeTWINE" />
+    <SUITE FILE_PATH="coverage/_mainEvaluation_py$ps.coverage" NAME="ps Coverage Results" MODIFIED="1689494825736" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$USER_HOME$/Desktop" />
+    <SUITE FILE_PATH="coverage/GFSequivalent_py$GFSequivalent.coverage" NAME="GFSequivalent Coverage Results" MODIFIED="1689952455487" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Varify" />
+    <SUITE FILE_PATH="coverage/_impossible_differential_py$adraft.coverage" NAME="adraft Coverage Results" MODIFIED="1690131597104" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/GFSequivalent_py$_mainEvaluation.coverage" NAME="_mainEvaluation Coverage Results" MODIFIED="1689745381833" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/shuffleEvaluation" />
+    <SUITE FILE_PATH="coverage/_mainEvaluation_py$_division_property.coverage" NAME="_division_property Coverage Results" MODIFIED="1689503966291" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/shuffleEvaluation" />
+    <SUITE FILE_PATH="coverage/GFSequivalent_py$_diffusion.coverage" NAME="_diffusion Coverage Results" MODIFIED="1689754675664" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/shuffleEvaluation" />
+    <SUITE FILE_PATH="coverage/_impossible_differential_py$_impossible_differential.coverage" NAME="_impossible_differential Coverage Results" MODIFIED="1690205286969" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/shuffleEvaluation" />
+    <SUITE FILE_PATH="coverage/_impossible_differential_py$tools.coverage" NAME="tools Coverage Results" MODIFIED="1690203741832" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/shuffleEvaluation" />
+  </component>
+</project>

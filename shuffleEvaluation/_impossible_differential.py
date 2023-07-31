@@ -3,6 +3,10 @@
 import gurobipy as gp
 from gurobipy import GRB
 import numpy as np
+import time
+import pickle
+import tools
+from tqdm import tqdm
 
 
 def generate_impossibleDifferential_Model(shuffle, Round, activate_bit_input, activate_bit_output):
@@ -11,6 +15,7 @@ def generate_impossibleDifferential_Model(shuffle, Round, activate_bit_input, ac
 
     # Variables
     m = gp.Model('Truncated Impossible Differential Evaluation')
+    m.setParam('OutputFlag', 0)
     x_in = m.addVars(1, Branch, vtype=GRB.BINARY, name='x')
 
     midRound = [(r, b) for b in range(Branch)[::2] for r in range(1, Round+1)]
@@ -47,14 +52,29 @@ def generate_impossibleDifferential_Model(shuffle, Round, activate_bit_input, ac
     return m.Status
 
 
-# if __name__ == '__main__':
-#     for t_round in range(5, 30):
-#         branch = 6
-#         ac_position = np.eye(6)
-#
-#         for ac_in in ac_position:
-#             for ac_out in ac_position:
-#                 # print(ac_in, ac_out)
-#                 if generate_impossibleDifferential_Model([1, 2, 5, 0, 3, 4], t_round, ac_in, ac_out) == 2:
-#                     print('===\n', t_round, '\n===')
-#                     break
+if __name__ == '__main__':
+    time_start = time.time()
+    br_list = [4, 6, 8, 10, 12, 14, 16]
+    for br in br_list:
+        with open(r"ResultDSMITM/{}_branch_DSMITM.pkl".format(br), 'rb') as f:
+            SHUFFLES = pickle.load(f)
+        result = dict()
+        border = [SHUFFLES.get(next(iter(SHUFFLES)))[0],
+                  SHUFFLES.get(next(iter(SHUFFLES)))[1]]
+        for sk, v in tqdm(SHUFFLES.items()):
+            if all(abs(v[i] - border[i]) < 3 for i in range(2)):
+                for t_round in range(5, 30):
+                    ac_position = np.eye(br)
+                    flag = 0
+                    for ac_in in ac_position:
+                        for ac_out in ac_position:
+                            if generate_impossibleDifferential_Model(sk, t_round, ac_in, ac_out) == 3:
+                                flag = 1
+                                break
+                        if flag:
+                            break
+                    if not flag:
+                        result[sk] = v + [t_round]
+                        break
+        tools.save_file(result, r'ResultImpossibleDifferential/{}_branch_idc'.format(br), False)
+    print(time.time() - time_start)
