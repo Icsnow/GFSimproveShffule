@@ -22,7 +22,6 @@ def generate_impossibleDifferential_Model(shuffle, Round, activate_bit_input, ac
     x = m.addVars(midRound, vtype=GRB.BINARY, name='x')
 
     # Initial constraint
-    # 要写出限制每一bit而不能一起等于1
     for i in range(Branch):
         m.addConstr(x_in[0, i] == activate_bit_input[i], name='')
     for j in range(Branch)[::2]:
