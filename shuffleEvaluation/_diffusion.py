@@ -50,11 +50,10 @@ def rev(pp):
 
 
 if __name__ == '__main__':
-    timestart = time.time()
+    # timestart = time.time()
     br_list = [4, 6, 8, 10, 12, 14, 16]
     for br in br_list:
         SHUFFLES = np.load(r'../shuffleGeneration/PairEquivalentShuffles/{}_BranchPairEquivalentShuffles.npy'.format(br))
-        # SHUFFLES = [(1, 6, 7, 0, 5, 2, 9, 4, 3, 8)]
         ret = []
         p = Pool(8)
         for s in SHUFFLES:
@@ -71,7 +70,9 @@ if __name__ == '__main__':
         for s, v in zip(SHUFFLES, ret):
             result[tuple(s)] = [max(v)]
 
-        tools.save_file(result, r'ResultDiffusion/{}_branch_diffusion'.format(br))
-        # for sk, v in result.items():
-        #     print(sk, v)
-    print(time.time() - timestart)
+        tools.save_file(result, r'ResultDiffusion/{}_branch_diffusion'.format(br), False)
+
+        # for s in result:
+        #     print(s, ': ', result[s], ',')
+
+    # print(time.time() - timestart)

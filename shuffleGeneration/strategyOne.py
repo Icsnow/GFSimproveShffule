@@ -64,7 +64,6 @@ class Strategy:
 if __name__ == '__main__':
 
     pool = multiprocessing.Pool(5)
-    # k_lis = [4, 6, 8, 10, 12, 14, 16, 18, 20, 22, 24]
     k_lis = [4, 6, 8, 10, 12, 14]
     for k in k_lis:
         initialPerms = np.load('InitialShuffles/{}_BranchInitialShuffles.npy'.format(int(k/2)))
