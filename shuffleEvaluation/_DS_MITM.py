@@ -5,7 +5,7 @@ from gurobipy import GRB
 import pickle
 import time
 from tqdm import tqdm
-import tools
+from tools import save_file
 
 
 def gen_DSMITM_model(ROUND, BRANCH, SHUFFLE):
@@ -48,7 +48,7 @@ def gen_DSMITM_model(ROUND, BRANCH, SHUFFLE):
     m.addConstr(sum(x[0, b] for b in range(BRANCH)) >= 1, name='')
     m.addConstr(sum(y[ROUND, b] for b in range(BRANCH)) >= 1, name='')
 
-    # NO.ac_cells <= NO.(Key_length(=2 * branch_size)/size_cells)
+    # NO.ac_cells <= NO.(Key_length(=2 * branch_size)/size_cells, 2 for TWINE-128, 1.25 for TWINE-80)
     m.addConstr(sum(z[r, b] for b in range(int(BRANCH/2)) for r in range(ROUND)) <= 2 * BRANCH-1, name='')
 
     # obj function
@@ -63,42 +63,26 @@ if __name__ == '__main__':
     br_list = [4, 6, 8, 10, 12, 14, 16]
 
     for br in br_list:
-        with open(r"ResultDiffusion/{}_branch_diffusion.pkl".format(br), 'rb') as f:
+        with open(r"ResultDiffusion/{}_branch_diffusion_filtered.pkl".format(br), 'rb') as f:
             SHUFFLES = pickle.load(f)
-        # SHUFFLES = {
-        # (9, 6, 13, 0, 11, 2, 15, 4, 3, 10, 7, 8, 1, 12, 5, 14): [8],
-        # (1, 6, 7, 0, 9, 2, 15, 4, 5, 14, 3, 8, 13, 10, 11, 12): [8],
-        # (1, 4, 13, 0, 7, 2, 9, 10, 3, 6, 15, 8, 11, 12, 5, 14): [8],
-        # (1, 12, 9, 0, 5, 2, 15, 4, 11, 6, 3, 8, 7, 10, 13, 14): [8],
-        # (7, 2, 13, 4, 15, 6, 1, 8, 5, 10, 3, 0, 11, 12, 9, 14):  [8],
-        # (9, 2, 7, 4, 11, 6, 13, 8, 15, 10, 5, 0, 3, 12, 1, 14):  [8],
-        # (5, 2, 9, 4, 15, 6, 13, 8, 3, 10, 7, 0, 11, 12, 1, 14):  [8],
-        # (13, 2, 15, 4, 11, 6, 3, 8, 1, 10, 5, 0, 9, 12, 7, 14):  [8],
-        # (5, 2, 9, 4, 13, 6, 15, 8, 3, 10, 7, 0, 1, 12, 11, 14):  [8],
-        # (13, 2, 9, 4, 1, 6, 11, 8, 3, 10, 15, 0, 5, 12, 7, 14):  [8],
-        # (15, 2, 9, 4, 1, 6, 11, 8, 3, 10, 13, 0, 7, 12, 5, 14):  [8],
-        # (7, 2, 15, 4, 13, 6, 1, 8, 5, 10, 3, 0, 9, 12, 11, 14):  [8],
-        # (15, 2, 13, 4, 11, 6, 3, 8, 1, 10, 5, 0, 7, 12, 9, 14):  [8],
-        # (7, 2, 11, 4, 9, 6, 1, 8, 13, 10, 15, 0, 5, 12, 3, 14):  [8],
-        # (7, 2, 11, 4, 9, 6, 1, 8, 15, 10, 13, 0, 3, 12, 5, 14):  [8],
-        # (9, 2, 7, 4, 11, 6, 15, 8, 13, 10, 5, 0, 1, 12, 3, 14):  [8]
-        # }
+        # SHUFFLES = {(9, 6, 13, 0, 11, 2, 15, 4, 3, 10, 7, 8, 1, 12, 5, 14): [8],
+        #             (1, 6, 7, 0, 9, 2, 15, 4, 5, 14, 3, 8, 13, 10, 11, 12): [8]}
         result = dict()
         border = SHUFFLES.get(next(iter(SHUFFLES)))[-1]
         for sk, v in tqdm(SHUFFLES.items()):
-            degAB = -1
+            # degAB = -1
             if abs(v[-1] - border) < 3:
                 for r_round in range(5, 30):
                     b_branch = len(sk)
                     model = gen_DSMITM_model(r_round, b_branch, sk)
                     model.optimize()
-                    if model.Status == 2:
-                        degAB = model.Objval
+                    # if model.Status == 2:
+                    #     degAB = model.Objval
 
                     if model.Status == 3:
-                        result[sk] = v + [r_round - 1, int(degAB)]
+                        result[sk] = v + [r_round - 1] #, int(degAB)
                         break
-        tools.save_file(result, r'ResultDSMITM/{}_branch_DSMITM'.format(br), False)
+        save_file(result, r'ResultDSMITM/{}_branch_DSMITM_filtered'.format(br), False)
         # if t_round go to 29, the corresponding shuffle will be discarded.
 
         # for s in result:

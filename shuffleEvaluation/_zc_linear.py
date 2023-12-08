@@ -5,7 +5,7 @@ from gurobipy import GRB
 import numpy as np
 import pickle
 from tqdm import tqdm
-import tools
+from tools import save_file
 
 
 def generate_zcLinear_Model(shuffle, Round, activate_bit_input, activate_bit_output):
@@ -56,22 +56,8 @@ if __name__ == '__main__':
     br_list = [4, 6, 8, 10, 12, 14, 16]
 
     for br in br_list:
-        with open(r"ResultImpossibleDifferential/{}_branch_idc.pkl".format(br), 'rb') as f:
+        with open(r"ResultImpossibleDifferential/{}_branch_idc_filtered.pkl".format(br), 'rb') as f:
             SHUFFLES = pickle.load(f)
-        # SHUFFLES = {
-        # (7, 2, 13, 4, 15, 6, 1, 8, 5, 10, 3, 0, 11, 12, 9, 14) :  [8, 13, 15] ,
-        # (9, 2, 7, 4, 11, 6, 13, 8, 15, 10, 5, 0, 3, 12, 1, 14) :  [8, 13, 15] ,
-        # (5, 2, 9, 4, 15, 6, 13, 8, 3, 10, 7, 0, 11, 12, 1, 14) :  [8, 13, 15] ,
-        # (13, 2, 15, 4, 11, 6, 3, 8, 1, 10, 5, 0, 9, 12, 7, 14) :  [8, 13, 15] ,
-        # (5, 2, 9, 4, 13, 6, 15, 8, 3, 10, 7, 0, 1, 12, 11, 14) :  [8, 13, 15] ,
-        # (13, 2, 9, 4, 1, 6, 11, 8, 3, 10, 15, 0, 5, 12, 7, 14) :  [8, 13, 15] ,
-        # (15, 2, 9, 4, 1, 6, 11, 8, 3, 10, 13, 0, 7, 12, 5, 14) :  [8, 13, 15] ,
-        # (7, 2, 15, 4, 13, 6, 1, 8, 5, 10, 3, 0, 9, 12, 11, 14) :  [8, 13, 15] ,
-        # (15, 2, 13, 4, 11, 6, 3, 8, 1, 10, 5, 0, 7, 12, 9, 14) :  [8, 13, 15] ,
-        # (7, 2, 11, 4, 9, 6, 1, 8, 13, 10, 15, 0, 5, 12, 3, 14) :  [8, 13, 15] ,
-        # (7, 2, 11, 4, 9, 6, 1, 8, 15, 10, 13, 0, 3, 12, 5, 14) :  [8, 13, 15] ,
-        # (9, 2, 7, 4, 11, 6, 15, 8, 13, 10, 5, 0, 1, 12, 3, 14) :  [8, 13, 15]
-        # }
 
         result = dict()
         border = [SHUFFLES.get(next(iter(SHUFFLES)))[0],
@@ -92,7 +78,7 @@ if __name__ == '__main__':
                     if not flag:
                         result[sk] = v + [t_round]
                         break
-        tools.save_file(result, r'ResultZCLinear/{}_branch_zc'.format(br), False)
+        save_file(result, r'ResultZCLinear/{}_branch_zc_filtered'.format(br), False)
         # for s in result:
         #     print(s, ': ', result[s], ',')
     # print(time.time() - time_start)

@@ -6,7 +6,7 @@ import time
 from tqdm import tqdm
 import gurobipy as gp
 from gurobipy import GRB
-import tools
+from tools import save_file
 
 class DivisionProperty:
     """
@@ -118,22 +118,10 @@ if __name__ == '__main__':
     time_start = time.time()
     br_list = [4, 6, 8, 10, 12, 14, 16]
     for br in br_list:
-        with open(r"ResultLinear/{}_branch_lc.pkl".format(br), 'rb') as f:
-            SHUFFLES = pickle.load(f)
-        # SHUFFLES = {
-            # (7, 2, 13, 4, 15, 6, 1, 8, 5, 10, 3, 0, 11, 12, 9, 14):  [8, 13, 15, 15, 41, 41],
-            # (9, 2, 7, 4, 11, 6, 13, 8, 15, 10, 5, 0, 3, 12, 1, 14):  [8, 13, 15, 15, 41, 41],
-            # (5, 2, 9, 4, 15, 6, 13, 8, 3, 10, 7, 0, 11, 12, 1, 14):  [8, 13, 15, 15, 41, 41],
-            # (13, 2, 15, 4, 11, 6, 3, 8, 1, 10, 5, 0, 9, 12, 7, 14):  [8, 13, 15, 15, 41, 41],
-            # (5, 2, 9, 4, 13, 6, 15, 8, 3, 10, 7, 0, 1, 12, 11, 14):  [8, 13, 15, 15, 41, 41],
-            # (13, 2, 9, 4, 1, 6, 11, 8, 3, 10, 15, 0, 5, 12, 7, 14):  [8, 13, 15, 15, 41, 41],
-            # (15, 2, 9, 4, 1, 6, 11, 8, 3, 10, 13, 0, 7, 12, 5, 14):  [8, 13, 15, 15, 41, 41],
-            # (7, 2, 15, 4, 13, 6, 1, 8, 5, 10, 3, 0, 9, 12, 11, 14):  [8, 13, 15, 15, 41, 41],
-            # (15, 2, 13, 4, 11, 6, 3, 8, 1, 10, 5, 0, 7, 12, 9, 14):  [8, 13, 15, 15, 41, 41],
-            # (7, 2, 11, 4, 9, 6, 1, 8, 13, 10, 15, 0, 5, 12, 3, 14):  [8, 13, 15, 15, 41, 41],
-            # (7, 2, 11, 4, 9, 6, 1, 8, 15, 10, 13, 0, 3, 12, 5, 14):  [8, 13, 15, 15, 41, 41],
-            # (9, 2, 7, 4, 11, 6, 15, 8, 13, 10, 5, 0, 1, 12, 3, 14):  [8, 13, 15, 15, 41, 41]
-        # }
+        # with open(r"ResultLinear/{}_branch_lc_filtered.pkl".format(br), 'rb') as f:
+        #     SHUFFLES = pickle.load(f)
+        SHUFFLES = {(1, 12, 9, 0, 5, 2, 15, 4, 11, 6, 3, 8, 7, 10, 13, 14): [8, 13, 15, 15, 44, 44],
+                    (1, 4, 13, 0, 7, 2, 9, 10, 3, 6, 15, 8, 11, 12, 5, 14): [8, 13, 15, 15, 44, 44]}
         result = dict()
         border = [SHUFFLES.get(next(iter(SHUFFLES)))[0],
                   SHUFFLES.get(next(iter(SHUFFLES)))[1],
@@ -157,13 +145,13 @@ if __name__ == '__main__':
 
                     if all(varify_flag):
                         result[sk] = v + [r-1]
-                        print(result)
+                        # print(result)
                         break
                     else:
                         r += 1
-        tools.save_file(result, r'ResultIntegral\{}_branch_integral'.format(br), False)
-        # for s in result:
-        #     print(s, ': ', result[s], ',')
+        # save_file(result, r'ResultIntegral\{}_branch_integral_filtered'.format(br), False)
+        for s in result:
+            print(s, ': ', result[s], ',')
     # print(time.time() - time_start, '\n\n******\n Done \n******\n\n')
 
 

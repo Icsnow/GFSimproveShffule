@@ -2,6 +2,9 @@ import pickle
 import multiprocessing
 import time
 import numpy as np
+from shuffleEvaluation.tools import verify, save_file
+from shuffleEvaluation._diffusion import rev
+
 
 class Strategy:
     """
@@ -17,6 +20,16 @@ class Strategy:
         self.conjugatePerms = conjugate_p
         self.conditionalPerms = conditional_p
 
+    def filter(self):
+        new_shuffles = set()
+        for shuffle in self.pairEquivalentPerms:
+            if verify(self.branch, shuffle, new_shuffles) or \
+                    verify(self.branch, rev(shuffle), new_shuffles):
+                pass
+            else:
+                new_shuffles.add(shuffle)
+        print(self.branch, new_shuffles)
+        return new_shuffles
 
     def judgeEquivalentClass(self, perm):
         for condition in self.conditionalPerms:
@@ -37,7 +50,7 @@ class Strategy:
                 return False
         return True
 
-    def pairEquivalentGeneration(self):
+    def pairEquivalentGeneration(self, sieve):
         for conjugate_perm in self.conjugatePerms:
             tempPerm = self.temporaryPerm[:]
             for initial_perm in self.initialPerms:
@@ -53,7 +66,6 @@ class Strategy:
               + str(self.pairEquivalentPerms.size // self.branch) + '\n=====\n')
         np.save('PairEquivalentShuffles/{}_BranchPairEquivalentShuffles'.format(self.branch),
                 np.array(self.pairEquivalentPerms))
-        # print(np.load('PairEquivalentShuffles/{}_BranchPairEquivalentShuffles.npy'.format(self.branch)))
 
     # def test(self):
     #     print(self.initialPerms, '\n', len(self.initialPerms))
@@ -63,13 +75,14 @@ class Strategy:
 
 if __name__ == '__main__':
 
-    pool = multiprocessing.Pool(5)
-    k_lis = [4, 6, 8, 10, 12, 14]
+    pool = multiprocessing.Pool(8)
+    k_lis = [4, 6, 8, 10, 12, 14, 16]
     for k in k_lis:
         initialPerms = np.load('InitialShuffles/{}_BranchInitialShuffles.npy'.format(int(k/2)))
         conjugatePerms = np.load('ConjugatedShuffles/{}_BranchConjugatedShuffles.npy'.format(int(k/2)))
         conditionalPerms = np.load('ConditionalShuffles/{}_BranchConditionalShuffles.npy'.format(k))
         s = Strategy(k, initialPerms, conjugatePerms, conditionalPerms)
-        pool.apply_async(s.pairEquivalentGeneration, args=())
+        # s.pairEquivalentGeneration(False)
+        pool.apply_async(s.pairEquivalentGeneration, args=(False, ))
     pool.close()
     pool.join()
