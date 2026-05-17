@@ -1,6 +1,9 @@
 # GFS *shuffle* Evaluation
 
+Code for paper [Revisiting the shuffle of generalized Feistel structure](https://link.springer.com/article/10.1186/s42400-024-00220-0)
+
 *Author: Yincen Chen, Yi Guo, Xuanyu Liang, Ling Song & Qianqian Yang  (2023.6.18) 
+
 
 ## [The algorithms for generating the permutations](https://github.com/Icsnow/GFSimproveShffule/tree/main/shuffleGeneration)
 
