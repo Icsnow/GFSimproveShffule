@@ -6,4 +6,6 @@
 
 Collect all the representative shuffles for branches of length (4,6,8,10,12,14,16)
 
-## [The models for evaluating GFS with all shuffles](https://github.com/Icsnow/GFSimproveShffule/tree/main/shuffleGeneration)
+## [The models for evaluating GFS with all shuffles](https://github.com/Icsnow/GFSimproveShffule/tree/main/shuffleEvaluation)
+
+Mount all the representative shuffles into GFS and evaluate their resistance on Differential, Linear, Impossible Differential, Zero Correlation, Integral, and DS-MITM attacks.
