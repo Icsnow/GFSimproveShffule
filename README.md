@@ -4,6 +4,7 @@ Code for paper [Revisiting the shuffle of generalized Feistel structure](https:/
 
 *Author: Yincen Chen, Yi Guo, Xuanyu Liang, Ling Song & Qianqian Yang  (2023.6.18) 
 
+*Affiliation: 暨南大学网络空间安全学院（College of Cyber Security, Jinan University）
 
 ## [The algorithms for generating the permutations](https://github.com/Icsnow/GFSimproveShffule/tree/main/shuffleGeneration)
 
